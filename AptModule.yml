@@ -1,0 +1,45 @@
+---
+- name: Create dir
+  hosts: webserver
+  become: yes #Superuser (root) privilege
+  tasks:
+  - name: install apache2
+    apt: 
+      name: apache2 # apt package to install
+      update_cache: true 
+      state: present
+    when: ansible_os_family == 'Debian' #run when the Os is Debian
+    register: giboiadd
+  - debug: var=giboiadd #show register variable
+  #- name: Print the generated password
+   # debug:
+    #msg: "The password is {{ giboiadd }}"
+
+# How to update multiple packages with the yum module
+#- name: install redis on RHEL based distros
+ # yum:
+  #  name: redis
+   # state: present
+    #update_cache: true
+ # become: true
+ # when: ansible_os_family == 'RedHat'
+
+###How to install multiple packages with the yum module
+
+#- name: ensure wget and ruby are installed
+  #yum:
+  #  name: 
+  #    - wget
+  #    - ruby
+  #  state: present
+  #  update_cache: true
+  #become: true
+
+#How to remove a package with the yum module
+
+#- name: ensure wget is not installed
+ # yum:
+  #  name: wget
+   # state: absent
+   # autoremove: true
+  #become: true
